@@ -30,9 +30,15 @@ def get_digits(cnpj):
     return cnpj + second_digit(cnpj)
 
 
+def is_sequence(cnpj):
+    return cnpj[0]*len(cnpj) == cnpj
+
+
 #   main function
 def cnpj_is_valid(cnpj):
     cnpj = remove_chars(cnpj)
+    if is_sequence(cnpj):
+        return False
     new_cnpj = get_digits(cnpj)
     return cnpj == new_cnpj
 
