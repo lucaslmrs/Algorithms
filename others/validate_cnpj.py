@@ -36,11 +36,14 @@ def is_sequence(cnpj):
 
 #   main function
 def cnpj_is_valid(cnpj):
-    cnpj = remove_chars(cnpj)
-    if is_sequence(cnpj):
+    try:
+        cnpj = remove_chars(cnpj)
+        if is_sequence(cnpj):
+            return False
+        new_cnpj = get_digits(cnpj)
+        return cnpj == new_cnpj
+    except IndexError:
         return False
-    new_cnpj = get_digits(cnpj)
-    return cnpj == new_cnpj
 
 
 print(cnpj_is_valid('12.544.992/0001-05'))
