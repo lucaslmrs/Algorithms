@@ -1,4 +1,6 @@
 from random import randint
+
+
 def binary_search(n, num_list, start=0, end=-1):
     if end == -1:
         end = len(num_list) - 1
