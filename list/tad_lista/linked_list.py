@@ -22,7 +22,7 @@ class LinkedList:
             for i in range(self.__size):
                 yield pointer.data
                 pointer = pointer.next
-        except Exception:
+        except AttributeError:
             pass
 
     def print_list(self):
