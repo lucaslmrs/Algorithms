@@ -16,14 +16,24 @@ class LinkedList:
     def __repr__(self):
         return self.__str__()
 
-    def __iter__(self):
+    def __func_iter(self, func):
         try:
             pointer = self.__head
             for i in range(self.__size):
-                yield pointer.data
+                yield func(pointer)
                 pointer = pointer.next
         except AttributeError:
             pass
+
+    def __iter__(self):
+        data_iter = self.__func_iter(lambda node: node.data)
+        for item in data_iter:
+            yield item
+
+    def node_iterator(self):
+        linked_iter = self.__func_iter(lambda node: node)
+        for item in linked_iter:
+            yield item
 
     def print_list(self):
         print(self)
@@ -31,7 +41,7 @@ class LinkedList:
     def __len__(self):
         return self.__size
 
-    def __getnode(self, index):
+    def _getnode(self, index):
         if index < 0:
             if abs(index) > self.__size:
                 raise IndexError(f"List index ({index}) out of range")
@@ -45,14 +55,14 @@ class LinkedList:
         return pointer
 
     def __getitem__(self, index: int):
-        pointer = self.__getnode(index)
+        pointer = self._getnode(index)
         if pointer:
             return pointer.data
         else:
             raise IndexError(f"List index ({index}) out of range")
 
     def __setitem__(self, index: int, item):
-        pointer = self.__getnode(index)
+        pointer = self._getnode(index)
         if pointer:
             pointer.data = item
         else:
@@ -94,7 +104,7 @@ class LinkedList:
             node.next = self.__head
             self.__head = node
         else:
-            pointer = self.__getnode(index - 1)
+            pointer = self._getnode(index - 1)
             node.next = pointer.next
             pointer.next = node
         self.__size += 1
