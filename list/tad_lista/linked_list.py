@@ -3,8 +3,8 @@ from list.tad_lista.node import Node
 
 class LinkedList:
     def __init__(self):
-        self.__head = None
-        self.__size = 0
+        self._head = None
+        self._size = 0
 
     def __str__(self):
         string = 'INICIO --> [ '
@@ -18,8 +18,8 @@ class LinkedList:
 
     def __func_iter(self, func):
         try:
-            pointer = self.__head
-            for i in range(self.__size):
+            pointer = self._head
+            for i in range(self._size):
                 yield func(pointer)
                 pointer = pointer.next
         except AttributeError:
@@ -39,14 +39,14 @@ class LinkedList:
         print(self)
 
     def __len__(self):
-        return self.__size
+        return self._size
 
     def _getnode(self, index):
         if index < 0:
-            if abs(index) > self.__size:
+            if abs(index) > self._size:
                 raise IndexError(f"List index ({index}) out of range")
-            index = self.__size + index
-        pointer = self.__head
+            index = self._size + index
+        pointer = self._head
         for i in range(index):
             if pointer:
                 pointer = pointer.next
@@ -83,45 +83,45 @@ class LinkedList:
         raise ValueError(f"{item} is not in list")
 
     def empty(self):
-        self.__head = None
+        self._head = None
 
     def size(self):
-        return self.__size
+        return self._size
 
     def append(self, item):
-        if self.__head:
-            pointer = self.__head
-            while pointer.next:
+        if self._head:
+            pointer = self._head
+            for i in range(len(self) - 1):
                 pointer = pointer.next
             pointer.next = Node(item)
         else:
-            self.__head = Node(item)
-        self.__size += 1
+            self._head = Node(item)
+        self._size += 1
 
     def insert(self, index, item):
         node = Node(item)
         if index == 0:
-            node.next = self.__head
-            self.__head = node
+            node.next = self._head
+            self._head = node
         else:
             pointer = self._getnode(index - 1)
             node.next = pointer.next
             pointer.next = node
-        self.__size += 1
+        self._size += 1
 
     def remove(self, item):
-        if self.__head is None:
+        if self._head is None:
             raise ValueError(f"{item} is not in list")
-        elif self.__head.data == item:
-            self.__head = self.__head.next
-            self.__size -= 1
+        elif self._head.data == item:
+            self._head = self._head.next
+            self._size -= 1
             return True
         else:
-            pointer = self.__head
+            pointer = self._head
             while pointer.next:
                 if pointer.next.data == item:
                     pointer.next = pointer.next.next
-                    self.__size -= 1
+                    self._size -= 1
                     return True
                 pointer = pointer.next
             raise ValueError(f"{item} is not in list")
