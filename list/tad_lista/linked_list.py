@@ -126,6 +126,23 @@ class LinkedList:
                 pointer = pointer.next
             raise ValueError(f"{item} is not in list")
 
+    def pop(self):
+        if self._head is None:
+            raise ValueError(f"The list is empty")
+        elif self._size == 1:
+            current = self._head.data
+            self._head = None
+            self._size -= 1
+            return current
+        else:
+            pointer = self._head
+            while pointer.next.next:
+                pointer = pointer.next
+            current = pointer.next.data
+            pointer.next = None
+            self._size -= 1
+            return current
+
 
 if __name__ == '__main__':
     lst = LinkedList()
@@ -146,5 +163,7 @@ if __name__ == '__main__':
     lst.print_list()
     print(lst.index(34))
     print(lst.size())
-    lst.empty()
+    print(lst.pop())
     lst.print_list()
+    lst.empty()
+    print(lst)
